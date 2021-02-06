@@ -40,6 +40,10 @@ class Date:
     @classmethod
     def is_leap_year(self, year: int) -> bool:
         """Проверяет, является ли год високосным"""
+        if year % 4 == 0 and year % 100 != 0 or year % 400 == 0:
+            return True
+        else:
+            return False
 
     @classmethod
     def get_max_day(self, month: int, year: int) -> int:
