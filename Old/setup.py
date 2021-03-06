@@ -1,3 +1,12 @@
+# 1. Реализовать класс Date и TimeDelta
+# 2. Протестировать (полностью покрыть тестами). Не забудь проверить даты на корректность.
+
+# При разработке использовать github
+# * Настроить Travis CI для проекта на странице github
+# * Создать пакет (модуль) из проекта и выгрузить на https://test.pypi.org/
+
+# * - подробно разберем на следующей практике
+
 from typing import Optional, overload
 
 
@@ -9,15 +18,15 @@ class TimeDelta:
 class Date:
     """Класс для работы с датами"""
 
-    @overload
-    def __init__(self, day: int, month: int, year: int):
-        """Создание даты из трех чисел"""
+    # @overload
+    # def __init__(self, day: int, month: int, year: int):
+    #     """Создание даты из трех чисел"""
+    #
+    # @overload
+    # def __init__(self, date: str):
+    #     """Создание даты из строки формата dd.mm.yyyy"""
 
-    @overload
-    def __init__(self, date: str):
-        """Создание даты из строки формата dd.mm.yyyy"""
-
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args):
         if len(args) == 3 and (isinstance(i, int) for i in args):
             self.day, self.month, self.year = (args[0]), int(args[1]), int(args[2])
 
@@ -32,7 +41,7 @@ class Date:
 
     def __str__(self) -> str:
         """Возвращает дату в формате dd.mm.yyyy"""
-        return day
+
 
     def __repr__(self) -> str:
         """Возвращает дату в формате Date(day, month, year)"""
@@ -49,29 +58,36 @@ class Date:
     def get_max_day(self, month: int, year: int) -> int:
         """Возвращает максимальное количество дней в месяце для указанного года"""
 
+
     @classmethod
     def is_valid_date(self, day: int, month: int, year: int):
         """Проверяет, является ли дата корректной"""
 
+
     @property
     def day(self):
-        self._day = day
+        return self.day
 
     @day.setter
     def day(self, value: int):
         """value от 1 до 31. Проверять значение и корректность даты"""
+        print(self.day, value)
 
     @property
     def month(self):
-        return None
+        return self.month
 
     @month.setter
     def month(self, value: int):
         """value от 1 до 12. Проверять значение и корректность даты"""
+        print(self.day, value)
+        # if self.month > 12 and self.month < 1:
+        #     raise ValueError("Некорректное значение")
+
 
     @property
     def year(self):
-        return None
+        return self.year
 
     @year.setter
     def year(self, value: int):
@@ -89,8 +105,7 @@ class Date:
 
 def main():
     date = Date(1, 2, 1995)
-    date2 = Date("1.2.1995")
-
+    date2 = Date("3.2.1995")
 
 if __name__ == "__main__":
     main()
