@@ -9,6 +9,9 @@
 
 from typing import Optional, overload
 
+import logging
+logger = logging.getLogger(__name__)
+
 
 class TimeDelta:
     def __init__(self, days: Optional[int] = None, months: Optional[int] = None, years: Optional[int] = None):
@@ -27,21 +30,23 @@ class Date:
     #     """Создание даты из строки формата dd.mm.yyyy"""
 
     def __init__(self, *args):
+        # Проверяем на 3 значения между точками. Если не равно 3, то ошибка.
+
+        logger.debug("Делим на 3 части: день месяц и год")
         if len(args) == 3 and (isinstance(i, int) for i in args):
             self.day, self.month, self.year = (args[0]), int(args[1]), int(args[2])
-
+            logger.info("День: %s , Месяц: %s , Год: %s ," % (self.day, self.month, self.year))
         elif len(args) == 1 and isinstance(args[0], str):
             values = args[0].split(".")
             if len(values) != 3:
                 raise ValueError("Некорректное значение")
             self.day, self.month, self.year = (values[0]), int(values[1]), int(values[2])
-
+            logger.info("День: %s , Месяц: %s , Год: %s ," % (self.day, self.month, self.year))
         else:
             raise ValueError("Некорректное значение")
 
     def __str__(self) -> str:
-        """Возвращает дату в формате dd.mm.yyyy"""
-
+        return f"{self.day}'.'{self.month}'.'{self.year}"
 
     def __repr__(self) -> str:
         """Возвращает дату в формате Date(day, month, year)"""
@@ -58,20 +63,20 @@ class Date:
     def get_max_day(self, month: int, year: int) -> int:
         """Возвращает максимальное количество дней в месяце для указанного года"""
 
-
     @classmethod
     def is_valid_date(self, day: int, month: int, year: int):
         """Проверяет, является ли дата корректной"""
 
-
     @property
     def day(self):
-        return self.day
+        return self._day
 
     @day.setter
     def day(self, value: int):
         """value от 1 до 31. Проверять значение и корректность даты"""
-        print(self.day, value)
+        if not (1 <= value <= 31):
+            raise ValueError("Не верная дата")
+        self._day = value
 
     @property
     def month(self):
@@ -84,7 +89,6 @@ class Date:
         # if self.month > 12 and self.month < 1:
         #     raise ValueError("Некорректное значение")
 
-
     @property
     def year(self):
         return self.year
@@ -92,6 +96,9 @@ class Date:
     @year.setter
     def year(self, value: int):
         """value от 1 до ... . Проверять значение и корректность даты"""
+        if not (1000 <= value <= 3000):
+            raise ValueError("Не верный год")
+        self.year = value
 
     def __sub__(self, other: "Date") -> int:
         """Разница между датой self и other (-)"""
@@ -103,9 +110,17 @@ class Date:
         """Добавляет к self некий timedelta меняя сам self (+=)"""
 
 
-def main():
-    date = Date(1, 2, 1995)
-    date2 = Date("3.2.1995")
+def _main():
+    logging.basicConfig()
+    logger.setLevel(logging.DEBUG)
+
+    logger.debug("start main")
+    date = Date(01.02.1995)
+    logger.debug("create date : 1, 2, 1995")
+
+    #date2 = Date("3.2.1995")
+
+
 
 if __name__ == "__main__":
-    main()
+    _main()
