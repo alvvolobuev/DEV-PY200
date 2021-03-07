@@ -9,9 +9,6 @@
 
 from typing import Optional, overload
 
-import logging
-logger = logging.getLogger(__name__)
-
 
 class TimeDelta:
     def __init__(self, days: Optional[int] = None, months: Optional[int] = None, years: Optional[int] = None):
@@ -32,16 +29,16 @@ class Date:
     def __init__(self, *args):
         # Проверяем на 3 значения между точками. Если не равно 3, то ошибка.
 
-        logger.debug("Делим на 3 части: день месяц и год")
+        #Если это число:
         if len(args) == 3 and (isinstance(i, int) for i in args):
-            self.day, self.month, self.year = (args[0]), int(args[1]), int(args[2])
-            logger.info("День: %s , Месяц: %s , Год: %s ," % (self.day, self.month, self.year))
+            self.day, self.month, self.year = (args[0]), int(args[1]), int(args[2])me
+
+        #Если это строка
         elif len(args) == 1 and isinstance(args[0], str):
             values = args[0].split(".")
             if len(values) != 3:
                 raise ValueError("Некорректное значение")
             self.day, self.month, self.year = (values[0]), int(values[1]), int(values[2])
-            logger.info("День: %s , Месяц: %s , Год: %s ," % (self.day, self.month, self.year))
         else:
             raise ValueError("Некорректное значение")
 
@@ -85,9 +82,11 @@ class Date:
     @month.setter
     def month(self, value: int):
         """value от 1 до 12. Проверять значение и корректность даты"""
-        print(self.day, value)
-        # if self.month > 12 and self.month < 1:
-        #     raise ValueError("Некорректное значение")
+        if 1 <= value <= 12:
+            raise self.month
+        else:
+            raise ValueError("Некорректное значение")
+
 
     @property
     def year(self):
@@ -96,7 +95,7 @@ class Date:
     @year.setter
     def year(self, value: int):
         """value от 1 до ... . Проверять значение и корректность даты"""
-        if not (1000 <= value <= 3000):
+        if 1000 <= value <= 3000:
             raise ValueError("Не верный год")
         self.year = value
 
@@ -111,14 +110,8 @@ class Date:
 
 
 def _main():
-    logging.basicConfig()
-    logger.setLevel(logging.DEBUG)
-
-    logger.debug("start main")
-    date = Date(01.02.1995)
-    logger.debug("create date : 1, 2, 1995")
-
-    #date2 = Date("3.2.1995")
+    date = Date(1,2,1995)
+    date2 = Date("3.2.1995")
 
 
 
