@@ -1,5 +1,6 @@
 from typing import Any, Optional
 
+
 class Node:
     def __init__(self, data: Any, next_node: Optional["Node"] = None):
         self.data = data
@@ -155,23 +156,22 @@ class LinkedList:
                 if i == index - 1:
                     node.next_node = node.next_node.next_node
 
-# class LinkedListWithDriver(LinkedList):
-#     def __init__(self, driver: IstructureDriver = None):
-#         self.driver = driver
-#         super().__init__()
+
+def main():
+    ll = LinkedList()
+    ll.append("a")
+    ll.append("b")
+    ll.append("c")
+    ll.append("d")
+    ll.append("e")
+    print(ll)
+    ll[2] = "g"
+    print(ll)
+    ll.insert("6", 5)
+    ll.insert("6", 2)
+    ll.insert("6", 0)
+    print(ll)
 
 
-
-ll = LinkedList()
-ll.append("a")
-ll.append("b")
-ll.append("c")
-ll.append("d")
-ll.append("e")
-print(ll)
-ll[2] = "g"
-print(ll)
-# ll.insert("6", 5)
-# ll.insert("6", 2)
-# ll.insert("6", 0)
-# print(ll)
+if __name__ == '__main__':
+    main()
