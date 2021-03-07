@@ -17,6 +17,10 @@ class TimeDelta:
 
 class Date:
     """Класс для работы с датами"""
+    DAY_OF_MONTH = (
+        (31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31),  # обычный год
+        (31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31)  # високосный
+    )
 
     # @overload
     # def __init__(self, day: int, month: int, year: int):
@@ -31,7 +35,7 @@ class Date:
 
         #Если это число:
         if len(args) == 3 and (isinstance(i, int) for i in args):
-            self.day, self.month, self.year = (args[0]), int(args[1]), int(args[2])me
+            self.day, self.month, self.year = (args[0]), int(args[1]), int(args[2])
 
         #Если это строка
         elif len(args) == 1 and isinstance(args[0], str):
@@ -59,6 +63,8 @@ class Date:
     @classmethod
     def get_max_day(self, month: int, year: int) -> int:
         """Возвращает максимальное количество дней в месяце для указанного года"""
+
+
 
     @classmethod
     def is_valid_date(self, day: int, month: int, year: int):
